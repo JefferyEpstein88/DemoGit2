@@ -1,5 +1,7 @@
 <?php
- 
+
+ require_once("classthermistor.php");
+    
 if(isset($_GET['Vadc']) && isset($_GET['Vcc']) && isset($_GET['Rdiv']) && isset($_GET['unit']))
 {
  
@@ -7,9 +9,7 @@ if(isset($_GET['Vadc']) && isset($_GET['Vcc']) && isset($_GET['Rdiv']) && isset(
  $Vcc = $_GET['Vcc'];
  $Rdiv = $_GET['Rdiv'];
  $unit = $_GET['unit'];
- 
- require_once("classthermistor.php");
- 
+  
  $aConverter = new Thermistor();
  
     $aConverter->setVadc($Vadc);
@@ -20,11 +20,13 @@ if(isset($_GET['Vadc']) && isset($_GET['Vcc']) && isset($_GET['Rdiv']) && isset(
  
  echo "temperature =". round($Temperature, 2) . "°";
  
- }else{
+ }
+else{
  
+
  echo "ERREUR: DES PARAMETRE SONT MANQUANT " ;
  
  
  
- }
+}
 ?>

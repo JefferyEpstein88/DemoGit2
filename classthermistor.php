@@ -1,12 +1,16 @@
  <?php
+
+
 class Thermistor {
- 
+ //propriete 
     protected $Vcc  ;
     protected $Rdiv ;
     protected $Vadc ;
     protected $temp ;
     protected $Rt ;
  
+
+//tableau conversion 
 private $tblConvert = array( array(111.3, -30.0), array(86.39, -25),
 array( 67.74, -20 ), array( 53.39, -15 ), array( 42.45, -10 ),
 array( 33.89, -5 ), array( 27.28, 0 ), array( 22.05, 5 ),
@@ -18,63 +22,42 @@ array( 2.229, 70 ), array( 1.924, 75 ), array( 1.669, 80 ),
 array( 1.451, 85 ), array( 1.266, 90 ), array( 1.108, 95 ),
 array( 0.9735, 100 ), array( 0.8574, 105 ), array( 0.7579, 110 ) );
 
-public function __construct($Vcc = 5.0, $Rdiv= 10.0, $Vadc= 2.5) 
+public function __construct($Vcc = 5.0, $Rdiv= 10.0, $Vadc= 2.5) //initialisation des objets
 {
 $this->Vcc = $Vcc;
 $this->Rdiv = $Rdiv;
 $this->Vadc = $Vadc;
+
 $this->Rt = 0;
 $this-> temp = 0;
 }
  
-
-//setters
-public function setVcc($Vcc)
-{
-$this ->Vcc=$Vcc;
-}
-public function setRdiv($Rdiv)
-{
-$this ->Rdiv=$Rdiv;
-}
-public function setVadc($Vadc)
-{
-$this ->Vadc=$Vadc;
-}
-
-//getters
-public function getVcc()
-{
-return $this->$Vcc;
-}
-public function getRdiv()
-{
-return $this->$Rdiv;
-}
-public function getVadc()
-{
-return $this->$Vadc;
-}
-public function getRt()
-{
-return $this->$Rt;
-}
-public function gettemp()
-{
-return $this->$temp;
-}
-
    // calcul de la résistance du thermistor
     public function calculerRt()
     {
-        if ($this->Vcc == $this->Vadc) {
+        if ($this->Vcc == $this->Vadc) // si 0
+        {
             return false; // false car il empeche un divisions par 0
         }
  
         $this->Rt = ($this->Vadc * $this->Rdiv) / ($this->Vcc - $this->Vadc);
         return $this->Rt;
     }
- 
+
+//setters, modification de val de l'objet
+public function setVcc($Vcc)
+{
+    $this ->Vcc=$Vcc;
+}
+public function setRdiv($Rdiv)
+{
+    $this ->Rdiv=$Rdiv;
+}
+public function setVadc($Vadc)
+{
+    $this ->Vadc=$Vadc;
+}
+
     // calcul de la température
     public function calculerTemperature()
     {
